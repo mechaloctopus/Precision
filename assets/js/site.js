@@ -97,6 +97,7 @@
   let lenis = null;
   if (!reduced && window.Lenis) {
     lenis = new window.Lenis({ lerp: 0.085, smoothWheel: true });
+    window.__lenis = lenis;
     if (hasGsap) {
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -313,7 +314,10 @@
 
   if (reduced) { $$(".ww").forEach((w) => (w.style.opacity = 1)); return; }
 
+  const isHome = !!$(".hero");
+
   function intro() {
+    if (!isHome) return;
     const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
     tl.from(".hero__media img", { scale: 1.4, duration: 2.6 }, 0)
       .from(".hero__title span", { yPercent: 110, opacity: 0, duration: 1.6, stagger: 0.06 }, 0.2)
@@ -323,11 +327,6 @@
   }
 
   const mm = gsap.matchMedia();
-
-  // Hero: parallax zoom out of the frame
-  gsap.to(".hero__media img", { scale: 1.32, yPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-  gsap.to(".hero__content", { yPercent: -40, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "70% top", scrub: true } });
-  gsap.to(".hero__title", { letterSpacing: "0.3em", ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "70% top", scrub: true } });
 
   // Headings rise word by word
   $$("[data-split]").forEach((el) => {
@@ -354,34 +353,41 @@
     gsap.fromTo(img, { scale: 1.3, yPercent: -12 }, { scale: 1, yPercent: 4, ease: "none", scrollTrigger: { trigger: ch, start: "top bottom", end: "bottom top", scrub: true } });
     gsap.from($(".chapter__overlay", ch), { yPercent: 40, ease: "none", scrollTrigger: { trigger: ch, start: "top bottom", end: "bottom bottom", scrub: true } });
   });
-  gsap.fromTo(".outdoor__media img", { yPercent: -10 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: ".outdoor", start: "top bottom", end: "bottom top", scrub: true } });
-  gsap.fromTo(".contact__bg img", { scale: 1.35 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".contact", start: "top bottom", end: "bottom bottom", scrub: true } });
-  gsap.from(".lineage__mark", { rotate: -120, opacity: 0, scale: 0.6, ease: "none", scrollTrigger: { trigger: ".lineage", start: "top 85%", end: "top 30%", scrub: true } });
-  gsap.from(".swatch--card", { y: 80, opacity: 0, duration: 1.4, stagger: 0.1, ease: "expo.out", scrollTrigger: { trigger: ".plaster__swatches", start: "top 85%" } });
-  gsap.from(".film", { y: 60, opacity: 0, duration: 1.4, stagger: 0.08, ease: "expo.out", scrollTrigger: { trigger: ".films__grid", start: "top 85%" } });
-  gsap.to(".material > .swatch .swatch__tex", { scale: 1.12, ease: "none", scrollTrigger: { trigger: ".material", start: "top bottom", end: "bottom top", scrub: true } });
+  if (isHome) {
+    // Hero: parallax zoom out of the frame
+    gsap.to(".hero__media img", { scale: 1.32, yPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to(".hero__content", { yPercent: -40, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "70% top", scrub: true } });
+    gsap.to(".hero__title", { letterSpacing: "0.3em", ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "70% top", scrub: true } });
 
-  // Yakisugi: daylight to dusk as the section scrolls past
-  const yaki = $(".yaki");
-  ScrollTrigger.create({
-    trigger: yaki, start: "top top", end: "bottom bottom", scrub: true,
-    onUpdate: (self) => yaki.style.setProperty("--dusk", gsap.utils.clamp(0, 1, (self.progress - 0.2) / 0.55).toFixed(3)),
-  });
-  gsap.fromTo(".yaki__tex", { scale: 1.12 }, { scale: 1, ease: "none", scrollTrigger: { trigger: yaki, start: "top bottom", end: "bottom top", scrub: true } });
+    gsap.fromTo(".outdoor__media img", { yPercent: -10 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: ".outdoor", start: "top bottom", end: "bottom top", scrub: true } });
+    gsap.fromTo(".contact__bg img", { scale: 1.35 }, { scale: 1, ease: "none", scrollTrigger: { trigger: ".contact", start: "top bottom", end: "bottom bottom", scrub: true } });
+    gsap.from(".lineage__mark", { rotate: -120, opacity: 0, scale: 0.6, ease: "none", scrollTrigger: { trigger: ".lineage", start: "top 85%", end: "top 30%", scrub: true } });
+    gsap.from(".swatch--card", { y: 80, opacity: 0, duration: 1.4, stagger: 0.1, ease: "expo.out", scrollTrigger: { trigger: ".plaster__swatches", start: "top 85%" } });
+    gsap.from(".film", { y: 60, opacity: 0, duration: 1.4, stagger: 0.08, ease: "expo.out", scrollTrigger: { trigger: ".films__grid", start: "top 85%" } });
+    gsap.to(".material > .swatch .swatch__tex", { scale: 1.12, ease: "none", scrollTrigger: { trigger: ".material", start: "top bottom", end: "bottom top", scrub: true } });
 
-  // Wood: pinned horizontal travel on desktop
-  mm.add("(min-width: 861px)", () => {
-    const rail = $(".hscroll__rail");
-    const distance = () => Math.max(0, rail.scrollWidth - innerWidth);
-    const tween = gsap.to(rail, {
-      x: () => -distance(),
-      ease: "none",
-      scrollTrigger: { trigger: ".hscroll", start: "top top", end: () => "+=" + distance(), pin: ".hscroll__pin", scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
+    // Yakisugi: daylight to dusk as the section scrolls past
+    const yaki = $(".yaki");
+    ScrollTrigger.create({
+      trigger: yaki, start: "top top", end: "bottom bottom", scrub: true,
+      onUpdate: (self) => yaki.style.setProperty("--dusk", gsap.utils.clamp(0, 1, (self.progress - 0.2) / 0.55).toFixed(3)),
     });
-    $$(".card .ph img", rail).forEach((img) => {
-      gsap.fromTo(img, { xPercent: -8, scale: 1.2 }, { xPercent: 8, scale: 1.2, ease: "none", scrollTrigger: { trigger: img.parentElement, containerAnimation: tween, start: "left right", end: "right left", scrub: true } });
+    gsap.fromTo(".yaki__tex", { scale: 1.12 }, { scale: 1, ease: "none", scrollTrigger: { trigger: yaki, start: "top bottom", end: "bottom top", scrub: true } });
+
+    // Wood: pinned horizontal travel on desktop
+    mm.add("(min-width: 861px)", () => {
+      const rail = $(".hscroll__rail");
+      const distance = () => Math.max(0, rail.scrollWidth - innerWidth);
+      const tween = gsap.to(rail, {
+        x: () => -distance(),
+        ease: "none",
+        scrollTrigger: { trigger: ".hscroll", start: "top top", end: () => "+=" + distance(), pin: ".hscroll__pin", scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
+      });
+      $$(".card .ph img", rail).forEach((img) => {
+        gsap.fromTo(img, { xPercent: -8, scale: 1.2 }, { xPercent: 8, scale: 1.2, ease: "none", scrollTrigger: { trigger: img.parentElement, containerAnimation: tween, start: "left right", end: "right left", scrub: true } });
+      });
     });
-  });
+  }
 
   addEventListener("load", () => ScrollTrigger.refresh());
 })();
