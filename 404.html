@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not found — Precision Solutions</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/Precision/assets/emblem.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/Precision/assets/css/site.css">
+<style>
+  .lost { min-height: 100vh; min-height: 100svh; display: grid; place-items: center; text-align: center; padding: 40px var(--gutter); }
+  .lost__inner { display: grid; justify-items: center; gap: 28px; }
+  .lost svg { width: 96px; height: 96px; color: var(--brass); animation: turn 24s linear infinite; }
+  @keyframes turn { to { transform: rotate(360deg); } }
+  .lost p:not(.eyebrow) { color: var(--bone-2); max-width: 34ch; font-family: var(--serif); font-size: clamp(20px, 2.2vw, 28px); line-height: 1.35; }
+  .lost__actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+</style>
+</head>
+<body>
+<main class="lost">
+  <div class="lost__inner">
+    <svg viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2">
+      <circle cx="100" cy="100" r="94"/><circle cx="100" cy="100" r="86" stroke-width=".6"/>
+      <path d="M100 6v10M100 184v10M6 100h10M184 100h10" stroke-width=".8"/>
+      <circle cx="100" cy="100" r="58" stroke-width=".6"/>
+      <path d="M84 138V62h22c13 0 22 8 22 20s-9 20-22 20H84" stroke-width="2.2" stroke-linecap="square"/><path d="M72 138h26"/>
+    </svg>
+    <p class="eyebrow">404</p>
+    <h1 class="display display--l">Not <em>here.</em></h1>
+    <p>Even precision has its blind spots. What you were looking for has moved, or was never built — yet.</p>
+    <div class="lost__actions">
+      <a class="btn" href="/Precision/">Home</a>
+      <a class="btn btn--ghost" href="/Precision/works.html">The Archive</a>
+      <a class="btn btn--ghost" href="tel:+18086479523">808 647 9523</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

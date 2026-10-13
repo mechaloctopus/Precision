@@ -57,6 +57,14 @@
     photos.forEach((f) => io.observe(f));
   } else photos.forEach(initPhoto);
 
+  /* Homepage teaser: drawn from the same data as the Archive */
+  const teaser = $(".teaser[data-works]");
+  if (teaser && window.PRECISION_WORKS) {
+    const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    teaser.innerHTML = teaser.dataset.works.split(",").map((id) => window.PRECISION_WORKS.find((w) => w.id === id)).filter((w) => w && w.shot).map((w) =>
+      `<a href="works.html#${w.id}" data-cursor="Open"><figure><img src="assets/works/${w.shot}.webp" alt="${esc(w.title)}" loading="lazy"></figure><b>${esc(w.title)}</b><span>${esc(w.kind)} · ${esc(w.platform)} · ${esc(w.status)}</span></a>`).join("");
+  }
+
   /* Films: lightweight facades, iframe only on click */
   $$(".film").forEach((btn) => {
     const id = btn.dataset.yt;
@@ -86,6 +94,7 @@
     doc.classList.toggle("menu-open", open);
     menuBtn.setAttribute("aria-expanded", String(open));
     menu.setAttribute("aria-hidden", String(!open));
+    menu.inert = !open;
     if (lenis) open ? lenis.stop() : lenis.start();
   };
   menuBtn.addEventListener("click", () => setMenu(!doc.classList.contains("menu-open")));
