@@ -1,0 +1,36 @@
+name: Verify links and cache photos
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ccr-a2e3886f-2xuvp5]
+    paths:
+      - ".github/workflows/verify-and-cache.yml"
+      - ".github/scripts/verify_and_cache.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: verify-and-cache
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests pillow
+      - run: python .github/scripts/verify_and_cache.py
+      - name: Commit cached photos and report
+        run: |
+          git config user.name "precision-bot"
+          git config user.email "precision-bot@users.noreply.github.com"
+          git add assets/photos
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "Cache verified photos and link report [skip ci]"
+          git push
