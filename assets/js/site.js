@@ -15,7 +15,7 @@
      keep the tonal placeholder if every one fails.
      ------------------------------------------------------------------ */
   const srcFor = (id, w) => {
-    if (id.startsWith("assets/")) return id;
+    if (id.includes("/")) return id;           // local file (assets/…, slabworx/…)
     if (id.startsWith("photo-")) return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=78`;
     return `https://unsplash.com/photos/${id}/download?w=${w}`;
   };
@@ -397,6 +397,11 @@
       });
     });
   }
+
+  // Featured slabs glide past each other
+  $$(".feature__slab img").forEach((img, k) => {
+    gsap.fromTo(img, { xPercent: k ? -16 : 0 }, { xPercent: k ? 0 : -16, ease: "none", scrollTrigger: { trigger: ".feature", start: "top bottom", end: "bottom top", scrub: true } });
+  });
 
   addEventListener("load", () => ScrollTrigger.refresh());
 })();

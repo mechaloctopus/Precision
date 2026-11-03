@@ -1,6 +1,6 @@
 # Precision Solutions LLC
 
-Static site: `index.html`, `works.html`, `404.html` + `assets/`. No build step. Served by GitHub Pages from the repository root.
+Static site: `index.html`, `works.html`, `404.html` + `assets/`, and the Aloha Slabworx site in `slabworx/`. No build step. Served by GitHub Pages from the repository root.
 
 - `assets/css/site.css`, `assets/js/site.js`: styles and interactions shared by both pages (GSAP + ScrollTrigger + Lenis, vendored in `assets/vendor/`)
 - `assets/img/`: original material studies (microcement, Venetian plaster, limewash, yakisugi)
@@ -23,3 +23,17 @@ Cards open a detail panel; `works.html#lensii` links straight to one.
 - Other sections carry a plain label (Manifesto, Disciplines, Films, The Archive, Built), never a number.
 - Phone is always written `808 647 9523` and linked as `tel:+18086479523`.
 - Share images and the home-screen icon live in `assets/meta/`.
+
+## Aloha Slabworx (`slabworx/`)
+
+A self-contained sister site (own CSS, JS, fonts and vendor copies), so the folder can be moved to its own repository and domain unchanged. It is featured directly under the hero on the homepage, first in the Archive, and in the nav, menu and footer.
+
+Photographs: put images in `slabworx/photos/` and list them in `slabworx/photos/photos.js` with a `slot` of `hero`, `mill` or `yard`. Until a slot has a photo the site shows its own wood studies (`slabworx/assets/img/`, generated, original).
+
+## Credit badge for project sites
+
+`assets/badge.js` adds a small "A Precision Solutions work" link to any project site:
+
+```html
+<script src="https://mechaloctopus.github.io/Precision/assets/badge.js" data-work="PROJECT_ID" defer></script>
+```

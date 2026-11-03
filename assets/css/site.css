@@ -739,3 +739,29 @@ html.dossier-open { overflow: hidden; }
   .footer { grid-template-columns: 1fr; }
   .footer__nav { justify-content: flex-start; }
 }
+
+/* ==========================================================================
+   Featured: Aloha Slabworx (homepage, directly under the hero)
+   ========================================================================== */
+.nav__links .nav__feature { color: #f0b07a; }
+.nav__links .nav__feature::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 9px; border-radius: 50%; background: #d9894a; box-shadow: 0 0 10px #d9894a; vertical-align: middle; }
+a.inline { color: var(--brass-2); border-bottom: 1px solid var(--line); }
+.feature { position: relative; display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: clamp(30px, 5vw, 90px); padding: clamp(110px, 18vh, 200px) var(--gutter); background: radial-gradient(70% 80% at 25% 50%, rgba(181,112,58,.16), transparent 70%), var(--ink); overflow: hidden; border-bottom: 1px solid var(--line); }
+.feature__media { position: relative; height: clamp(360px, 62vh, 640px); }
+.feature__slab { position: absolute; left: -12%; right: 4%; top: 8%; height: 46%; transform: rotate(-4deg); box-shadow: 0 50px 90px -30px rgba(0,0,0,.9); overflow: hidden; }
+.feature__slab--2 { top: 50%; left: -4%; right: 0; height: 40%; transform: rotate(3deg); }
+.feature__slab img { width: 120%; height: 100%; max-width: none; object-fit: cover; will-change: transform; }
+.feature__text { display: grid; gap: 26px; position: relative; }
+.feature .eyebrow { color: #d9894a; }
+.feature .display em { color: #f0b07a; }
+.feature__lead { font-family: var(--serif); font-size: clamp(20px, 1.9vw, 27px); line-height: 1.4; color: var(--bone-2); max-width: 32ch; }
+.feature__specs { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0 34px; border-top: 1px solid var(--line); padding-top: 18px; margin: 0; }
+.feature__specs dt { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+.feature__specs dd { margin: 4px 0 0; font-family: var(--serif); font-size: 24px; color: #f0b07a; }
+.feature__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 860px) {
+  .feature { grid-template-columns: 1fr; }
+  .feature__media { height: 64vw; }
+  .feature__specs { grid-template-columns: repeat(3, 1fr); gap: 0 14px; }
+  .feature__specs dd { font-size: 19px; }
+}

@@ -153,7 +153,7 @@
         <ul class="dossier__features">${w.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
         <ul class="dossier__stack">${w.stack.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
         ${w.note ? `<p class="dossier__note">${esc(w.note)}</p>` : ""}
-        <div class="dossier__links">${w.links.length ? w.links.map((l, k) => `<a class="btn ${k ? "btn--ghost" : ""}" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join("") : `<span class="dossier__status">Demo on request — 808 647 9523</span>`}</div>
+        <div class="dossier__links">${w.links.length ? w.links.map((l, k) => `<a class="btn ${k ? "btn--ghost" : ""}" href="${esc(l.url)}"${/^https?:/.test(l.url) ? ' target="_blank" rel="noopener"' : ""}>${esc(l.label)}${/^https?:/.test(l.url) ? " ↗" : " →"}</a>`).join("") : `<span class="dossier__status">Demo on request — 808 647 9523</span>`}</div>
         <nav class="dossier__nav"><button data-step="-1">← Previous</button><button data-step="1">Next →</button></nav>
       </div>`;
     body.dataset.index = i;

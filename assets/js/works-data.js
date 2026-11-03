@@ -6,6 +6,15 @@
    Published · Open source · Pitch · Concept. Link verbs: Open · Read · View. */
 window.PRECISION_WORKS = [
   {
+    id: "slabworx", title: "Aloha Slabworx", kind: "Venture", year: "2026",
+    tagline: "We bring the mill to the tree.",
+    about: "Kauaʻi Slabs, the Slabadabadoo slab yard: a portable 86-inch Alaskan sawmill on a Stihl MS 881 that mills giant island hardwoods where they fall. Ends sealed within the hour, air-dried under cover, finished in a solar kiln to 7–9%, and every slab tagged with its species, origin and moisture history.",
+    features: ["Portable milling on site", "Earpod, narra, monkeypod, koa, mango", "Air-dried + solar-kiln finished", "Slabs, finished pieces & mainland crating"],
+    stack: ["Sawmilling", "Kauaʻi", "Static web"],
+    links: [{ label: "Open", url: "slabworx/" }],
+    platform: "Kauaʻi", status: "Live", domain: "aloha slabworx", shot: "slabworx", frame: "browser", accent: "#d9894a", art: "rings",
+  },
+  {
     id: "lensii", title: "Lensii", kind: "App", year: "2026",
     tagline: "The camera app with every tool in the handle.",
     about: "A precision mobile camera, creator studio, screen recorder, compositor and visual-intelligence platform in a single instrument. The Android build already runs a working camera, timelapse, lab preview and a local-first library; an iOS edition follows.",
@@ -61,7 +70,7 @@ window.PRECISION_WORKS = [
     platform: "Web & mobile", status: "Live", shot: "modernvibe", frame: "phone", accent: "#00e0ff", art: "waves",
   },
   {
-    id: "colorvibe", title: "Color Vibe", kind: "App", year: "2025",
+    id: "colorvibe", title: "Color Vibe Studio", kind: "App", year: "2025",
     tagline: "Palette engineering for painters.",
     about: "A colour workstation for artists. A full colour engine converts between HSL, RGB, CMYK and LAB, harmony algorithms build complementary, triadic and tetradic palettes, and a musical mode maps colour to sound.",
     features: ["HSL · RGB · CMYK · LAB engine", "Harmony & palette generation", "Ouija-board colour picker", "Musical colour modes"],
@@ -200,5 +209,5 @@ window.PRECISION_BUILT = [
   { title: "Plaster & microcement", line: "One continuous surface.", photos: "assets/img/venetian-plaster.webp", tone: "plaster" },
   { title: "Fences & screens", line: "Privacy treated as architecture.", photos: "YpK65tUQipg,y2i8-smk41U", tone: "wood" },
   { title: "Treehouses & theming", line: "Worlds, built by hand.", photos: "hlUMmB43VrA,uQ4fnjOP3kI", tone: "forest" },
-  { title: "Slabs & furniture", line: "Live edge, finished to glass.", photos: "aXJkDfOVfyE,ZaD7ZpPHtoI", tone: "wood" },
+  { title: "Slabs & sawmilling", line: "Aloha Slabworx: giants milled where they fall.", photos: "slabworx/assets/img/slab-earpod.webp", tone: "wood" },
 ];
