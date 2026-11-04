@@ -75,13 +75,13 @@
       ? titleCard(w)
       : w.frame === "phone"
         ? `<span class="device device--phone">${img}</span>`
-        : `<span class="device device--browser"><span class="device__bar"><i></i><i></i><i></i><em>${esc(w.domain || host((w.links[0] || {}).url) || w.id)}</em></span><span class="device__screen">${img}</span></span>`;
+        : `<span class="device device--browser"><span class="device__bar" aria-hidden="true"><i></i><i></i><i></i><em>${esc(w.domain || host((w.links[0] || {}).url) || w.id)}</em></span><span class="device__screen">${img}</span></span>`;
     return `<span class="wk__cover" style="--accent:${w.accent}"><canvas width="800" height="600" data-art="${w.id}"></canvas>${frame}<span class="wk__glare"></span></span>`;
   }
 
   grid.innerHTML = works.map((w, i) => `
     <article class="wk" data-kind="${kindKey(w.kind)}" style="--accent:${w.accent}">
-      <button class="wk__hit" data-open="${w.id}" aria-label="Open ${esc(w.title)}" data-cursor="Open">
+      <button class="wk__hit" data-open="${w.id}" data-cursor="Open">
         ${cover(w)}
         <span class="wk__meta"><i>${String(i + 1).padStart(2, "0")}</i><span>${esc(w.kind)} · ${esc(w.platform)}</span>${chip(w)}</span>
         <b class="wk__title">${esc(w.title)}</b>

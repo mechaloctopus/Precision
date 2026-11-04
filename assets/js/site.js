@@ -14,8 +14,10 @@
      Images: each slot lists candidate sources; try them in order and
      keep the tonal placeholder if every one fails.
      ------------------------------------------------------------------ */
+  const cached = new Set(window.PRECISION_CACHED || []);   // assets/photos/cached.js
   const srcFor = (id, w) => {
     if (id.includes("/")) return id;           // local file (assets/…, slabworx/…)
+    if (cached.has(id)) return `assets/photos/${id}.webp`;
     if (id.startsWith("photo-")) return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=78`;
     return `https://unsplash.com/photos/${id}/download?w=${w}`;
   };
@@ -41,7 +43,8 @@
     const img = $("img", fig);
     if (!img || fig.dataset.init) return;
     fig.dataset.init = "1";
-    const ids = fig.dataset.src.split(",").map((s) => s.trim()).filter(Boolean);
+    const ids = fig.dataset.src.split(",").map((s) => s.trim()).filter(Boolean)
+      .sort((a, b) => (cached.has(b) || b.includes("/")) - (cached.has(a) || a.includes("/")));   // verified local photos first
     img.decoding = "async";
     loadChain(img, ids, widthFor(fig), (url) => {
       if (url) { fig.classList.add("is-loaded"); resolved.set(fig.dataset.src, url); }
@@ -68,7 +71,8 @@
   /* Films: lightweight facades, iframe only on click */
   $$(".film").forEach((btn) => {
     const id = btn.dataset.yt;
-    $(".film__thumb", btn).style.backgroundImage = `url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)`;
+    const still = cached.has("yt-" + id) ? `assets/photos/yt-${id}.webp` : `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    $(".film__thumb", btn).style.backgroundImage = `url(${still})`;
     btn.setAttribute("aria-label", `Play film: ${$("b", btn).textContent}`);
     btn.addEventListener("click", () => {
       if (btn.classList.contains("is-playing")) return;
@@ -317,8 +321,7 @@
   });
   // Split paragraphs into words for scrubbed illumination
   $$("[data-words]").forEach((el) => {
-    el.setAttribute("aria-label", el.textContent.trim());
-    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="ww" aria-hidden="true">${w}</span>`).join(" ");
+    el.innerHTML = el.textContent.trim().split(/\s+/).map((w) => `<span class="ww">${w}</span>`).join(" ");
   });
 
   if (reduced) { $$(".ww").forEach((w) => (w.style.opacity = 1)); return; }

@@ -26,6 +26,8 @@ jobs:
           python-version: "3.12"
       - run: pip install requests pillow
       - run: python .github/scripts/verify_and_cache.py
+        env:
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
       - name: Commit cached photos and report
         run: |
           git config user.name "precision-bot"
