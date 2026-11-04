@@ -37,3 +37,9 @@ Photographs: put images in `slabworx/photos/` and list them in `slabworx/photos/
 ```html
 <script src="https://mechaloctopus.github.io/Precision/assets/badge.js" data-work="PROJECT_ID" defer></script>
 ```
+
+## Photos and link checks (`.github/workflows/verify-and-cache.yml`)
+
+Runs on GitHub (Actions tab → "Verify links and cache photos" → Run workflow). It downloads every photo the pages reference into `assets/photos/`, lists them in `assets/photos/cached.js` (the site serves these first), confirms each YouTube film embeds, checks every outbound link, and commits `assets/photos/report.json`.
+
+Unsplash photos given by short ID (e.g. `qrB7Sx319Uw`) are fetched through the official Unsplash API, which needs a free access key: create an app at unsplash.com/developers, then add its Access Key as a repository secret named `UNSPLASH_ACCESS_KEY` (Settings → Secrets and variables → Actions) and run the workflow. Until then those slots show their tonal placeholder or another verified photo.
